@@ -1,28 +1,36 @@
-import os, sys
+import os
 import unicodedata
+import pdb
 
-def ConvertToUnixPath(path = ""):
+
+def ConvertToUnixPath(path=""):
     return path.replace("\\", "/")
+
 
 def GetScriptsRootDir():
     return ConvertToUnixPath(os.path.split(os.path.realpath(__file__))[0]) + "/"
 
+
 def GetExtraTextureDir():
     return GetScriptsRootDir() + "../Textures/"
 
-def GetExtFromFilePath(filePath = ""):
+
+def GetExtFromFilePath(filePath=""):
     nPos = filePath.rfind('.')
     return filePath[nPos+1:len(filePath)]
 
-def GetDirFormFilePath(filePath = ""):
+
+def GetDirFormFilePath(filePath=""):
     nPos = filePath.rfind('/')
     return filePath[0:nPos+1]
 
-def GetFileNameFromFilePath(filePath = ""):
-	nPos = filePath.rfind('/')
-	return filePath[nPos+1:filePath.rfind('.')]
 
-def CreateDirInParentDir(parentDir = "", newDirName = ""):
+def GetFileNameFromFilePath(filePath=""):
+    nPos = filePath.rfind('/')
+    return filePath[nPos+1:filePath.rfind('.')]
+
+
+def CreateDirInParentDir(parentDir="", newDirName=""):
     if not parentDir.endswith("/"):
         parentDir += "/"
 
@@ -37,13 +45,15 @@ def CreateDirInParentDir(parentDir = "", newDirName = ""):
         return ''
     return newDirPath
 
+
 def ReplaceAllStringInFile(filePath, sourceStr, targetStr):
-    print('ReplaceAllStringInFile ' + filePath + ' from ' + sourceStr + ' to ' + targetStr)
-    inputFile = open(filePath)
+    print('ReplaceAllStringInFile ' + filePath +
+          ' from ' + sourceStr + ' to ' + targetStr)
+    inputFile = open(filePath, encoding='utf8')
     lines = inputFile.readlines()
     inputFile.close()
 
-    outputFile = open(filePath, 'w')
+    outputFile = open(filePath, 'w', encoding='utf8')
     for line in lines:
         if not line:
             break
@@ -58,10 +68,11 @@ def ReplaceAllStringInFile(filePath, sourceStr, targetStr):
 
     outputFile.close()
 
-def IsContainEastAsianWord(text = ''):
+
+def IsContainEastAsianWord(text=''):
     result = False
     for ch in text:
-        if isinstance(ch, unicode):
+        if isinstance(ch, str):
             if unicodedata.east_asian_width(ch) != 'Na':
                 result = True
                 break

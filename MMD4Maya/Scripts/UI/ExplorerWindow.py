@@ -3,13 +3,14 @@ from MMD4Maya.Scripts.Utils import *
 
 import pymel.util.path as pmp
 
+
 class ExplorerWindow(QtWidgets.QMainWindow):
-    def __init__(self, parent = None, type = 'pmd', mainWindow = None):
-        super(ExplorerWindow,self).__init__(parent)
+    def __init__(self, parent=None, type='pmd', mainWindow=None):
+        super(ExplorerWindow, self).__init__(parent)
         self.mainWindow = mainWindow
         self.explorerType = type
         self.setWindowTitle('MMD4Maya Explorer')
-        self.resize( 800, 800 )
+        self.resize(800, 800)
 
         widget = QtWidgets.QWidget()
         self.setCentralWidget(widget)
@@ -39,11 +40,12 @@ class ExplorerWindow(QtWidgets.QMainWindow):
         self.dirModel.setNameFilters(self.nameFilters)
         self.dirModel.setNameFilterDisables(False)
 
-        self.folderView = QtWidgets.QTreeView(parent = self)
+        self.folderView = QtWidgets.QTreeView(parent=self)
         self.folderView.setModel(self.dirModel)
-        self.folderView.clicked[QtCore.QModelIndex].connect(self.Clicked) 
-        self.folderView.doubleClicked[QtCore.QModelIndex].connect(self.DoubleClicked) 
-        self.folderView.setColumnWidth(0,250)
+        self.folderView.clicked[QtCore.QModelIndex].connect(self.Clicked)
+        self.folderView.doubleClicked[QtCore.QModelIndex].connect(
+            self.DoubleClicked)
+        self.folderView.setColumnWidth(0, 250)
 
         mainLayout.addWidget(self.folderView)
         mainLayout.addLayout(importLayout)
@@ -74,10 +76,10 @@ class ExplorerWindow(QtWidgets.QMainWindow):
                 self.mainWindow.AddVmdFile(path)
             self.close()
 
-    def Clicked(self,index):
+    def Clicked(self, index):
         self.UpdatePathViewer()
 
-    def DoubleClicked(self,index):
+    def DoubleClicked(self, index):
         self.ImportFile()
 
     def OnImportButtonClicked(self):
